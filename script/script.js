@@ -9,12 +9,12 @@ let taskArray = localStorage.getItem("tasks")
 ////////////////////////////////////////////////////////////
 //      For each item in the array, create a list item    //
 ////////////////////////////////////////////////////////////
-taskArray.forEach(addTask);
+taskArray.forEach(addListItem);
 
 ////////////////////////////////////////////////////////////
-//       Function to create list items from taskArray     //
+//            Function to create new list items           //
 ////////////////////////////////////////////////////////////
-function addTask(text) {
+function addListItem(text) {
   const taskListEntry = document.querySelector(".taskList"); // queryselector for the ul
   let li = document.createElement("li"); // variable for creation of an li-element inside the ul
   let checkbox = document.createElement("input"); // variable for creation of an input-element inside the li
@@ -28,61 +28,50 @@ function addTask(text) {
 }
 
 ////////////////////////////////////////////////////////////
-//       Function to create list items from taskArray     //
+//             Function to add value from input           //
+//           text field to array and localstorage         //
 ////////////////////////////////////////////////////////////
-function addNewTask() {
+function addToArrayAndStorage() {
   let inputText = document.querySelector(".input-text").value;
   taskArray.push(inputText);
   localStorage.setItem("tasks", JSON.stringify(taskArray));
-  addTask(inputText);
+  addListItem(inputText);
   inputText = "";
 }
 
 ////////////////////////////////////////////////////////////
-//                Function to call add                    //
+//              Function to call addTask                  //
 //               when button is pressed                   //
 ////////////////////////////////////////////////////////////
 const inputButton = document.querySelector(".input-button");
 inputButton.addEventListener("click", () => {
+  addTask();
+});
+
+////////////////////////////////////////////////////////////
+//             Function to call addTask                   //
+//             when enter key is pressed                  //
+////////////////////////////////////////////////////////////
+const inputText = document.querySelector(".input-text");
+inputText.addEventListener("keydown", (keypress) => {
+  if (keypress.key === "Enter") {
+    addTask();
+  }
+});
+
+////////////////////////////////////////////////////////////
+//      Sequence to run when attempting to add task       //
+////////////////////////////////////////////////////////////
+function addTask() {
   const inputText = document.querySelector(".input-text").value;
   if (inputText != "") {
-    addNewTask();
+    addToArrayAndStorage();
     document.querySelector(".input-text").value = ""; // clear the input field
   } else {
     console.log("input empty!");
     inputEmptyWarning();
   }
-});
-
-////////////////////////////////////////////////////////////
-//                Function to call add                    //
-//             when enter key is pressed                  //
-////////////////////////////////////////////////////////////
-const inputText = document.querySelector(".input-text");
-inputText.addEventListener("keyup", (keypress) => {
-  const inputText = document.querySelector(".input-text").value;
-  if (keypress.key === "Enter") {
-    if (inputText != "") {
-      addNewTask();
-      document.querySelector(".input-text").value = ""; // clear the input field
-    } else {
-      console.log("input empty!");
-      inputEmptyWarning();
-    }
-  }
-});
-
-////////////////////////////////////////////////////////////
-//                     Clear list when                    //
-//                    button is pressed                   //
-////////////////////////////////////////////////////////////
-// const clearButton = document.querySelector(".clear-button");
-// clearButton.addEventListener("click", () => {
-//   taskArray = [];
-//   const taskListEntry = document.querySelector(".taskList");
-//   taskListEntry.innerHTML = "";
-//   window.localStorage.clear();
-// });
+}
 
 ////////////////////////////////////////////////////////////
 //        Function to flash the input field red if        //
@@ -98,6 +87,10 @@ function inputEmptyWarning() {
   }, 1000);
 }
 
+////////////////////////////////////////////////////////////
+//                     Clear list when                    //
+//                    button is pressed                   //
+////////////////////////////////////////////////////////////
 function clearWarning() {
   if (confirm("Do you want to clear the list?")) {
     taskArray = [];
