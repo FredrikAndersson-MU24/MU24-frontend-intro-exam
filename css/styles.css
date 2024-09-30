@@ -1,3 +1,12 @@
+:root {
+  --bg-color: rgb(88, 119, 146);
+  --list-bg-color: white;
+  --card-bg-color: rgb(141, 177, 171);
+  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-color: rgb(49, 35, 30);
+  --border-radius: 0.5rem;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -6,46 +15,193 @@ body {
   width: 100vw;
   height: 100vh;
   margin: 0;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
+  background-color: var(--bg-color);
 }
-/* wrapper for the header, list, input and footer*/
+/*///////////////////////////////////////////////*/
+/* wrapper for the header, ul, input and footer*/
+/*///////////////////////////////////////////////*/
 .list-wrapper {
+  background-color: var(--card-bg-color);
   height: fit-content;
+  width: 24rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   border: 1px, solid, black;
-  padding: 1rem;
+  border-radius: var(--border-radius);
 }
 
-/* styling the tasklist*/
-ul {
-  height: 10rem;
-
-  font-size: 1.2rem;
-  scroll-behavior: auto;
-  overflow-x: hidden;
-  overflow-x: auto;
-  border: 1px, solid, black;
+/*////////////////////////////////*/
+/*     styling the header         */
+/*////////////////////////////////*/
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
-
-.text-input {
-  font-size: 1.2rem;
-}
-
-.buttonAddTask {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 2rem;
+/*////////////////////////////////*/
+/*     styling the title h1       */
+/*////////////////////////////////*/
+h1 {
+  font-family: var(--font-family);
   font-size: 2rem;
+}
+/*////////////////////////////////*/
+/*      styling the tasklist      */
+/*////////////////////////////////*/
+ul {
+  font-family: var(--font-family);
+  width: 22rem;
+  height: 20rem;
+  background-color: var(--list-bg-color);
+  list-style-type: none;
+  font-size: 1.2rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: auto;
+  border-radius: var(--border-radius);
   padding: 0;
 }
 
+/*////////////////////////////////*/
+/* Wrapper for the input elements */
+/*////////////////////////////////*/
 .input-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin-top: 1rem;
+}
+/*////////////////////////////////*/
+/*    Wrapper for the buttons     */
+/*////////////////////////////////*/
+.button-wrapper {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+/*////////////////////////////////*/
+/*  styling the input text field  */
+/*////////////////////////////////*/
+.input-text {
+  width: 100%;
+  background-color: white;
+  font-size: 1.2rem;
+  height: 3rem;
+  border: none;
+  border-radius: var(--border-radius);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.input-text:hover {
+  background-color: rgb(240, 240, 240);
+}
+/* Animation warning when text inout field is empty */
+@keyframes warning {
+  from {
+    background-color: red;
+  }
+  to {
+    background-color: white;
+  }
+}
+/* animation class for input text field if empty */
+.input-empty-warning {
+  animation-name: warning;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+}
+
+/*////////////////////////////*/
+/*  Styling for input button  */
+/*////////////////////////////*/
+.input-button {
+  height: 3rem;
+  width: fit-content;
+  border-radius: var(--border-radius);
+  font-size: 1.2rem;
+  padding: 0.6rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background-color: rgb(60, 245, 70);
+}
+.input-button:hover {
+  background-color: rgb(70, 255, 80);
+}
+/*////////////////////////////*/
+/*  Styling for clear button  */
+/*////////////////////////////*/
+.clear-button {
+  height: 3rem;
+  width: fit-content;
+  border-radius: var(--border-radius);
+  font-size: 1.2rem;
+  padding: 0.6rem;
+  background-color: rgb(245, 55, 55);
+}
+.clear-button:hover {
+  background-color: rgb(255, 65, 65);
+}
+/*/////////////////////*/
+/* styling list-items */
+/*/////////////////////*/
+li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.4rem;
+  border-bottom: 1px solid lightgray;
+  text-wrap-style: auto;
+  padding: 0;
+  margin: 0;
+  height: 3rem;
+}
+li:hover {
+  background-color: rgb(240, 240, 240);
+}
+/* Animation for added list item  */
+@keyframes taskAdded {
+  from {
+    background-color: lightgreen;
+  }
+  to {
+    background-color: white;
+  }
+}
+/*  animate fade from green when list item is added  */
+.list-item-added {
+  animation-name: taskAdded;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-out;
+}
+/* styling completed tasks */
+li input:checked + p {
+  color: lightslategray;
+  text-decoration: line-through;
+}
+li p {
+  padding-left: 0.5em;
+}
+/* prevent text selection, to make the list more like a list of "things rather than text"*/
+.prevent-select li p {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox {
+  margin-left: 1rem;
 }

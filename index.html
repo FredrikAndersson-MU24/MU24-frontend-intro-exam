@@ -11,33 +11,18 @@
     <div class="list-wrapper">
       <header><h1>ToDo</h1></header>
       <main>
-        <ul>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-          <li>Entry</li>
-        </ul>
+        <ul class="taskList prevent-select"></ul>
         <div class="input-wrapper">
-          <input type="text" class="text-input" /><button class="buttonAddTask">
-            +
-          </button>
+          <input type="text" class="input-text" autofocus />
+          <div class="button-wrapper">
+            <button class="clear-button button" onclick="clearWarning()">
+              Clear list
+            </button>
+
+            <button class="input-button button">Add task</button>
+          </div>
         </div>
       </main>
-      <footer>footer</footer>
     </div>
   </body>
 </html>
