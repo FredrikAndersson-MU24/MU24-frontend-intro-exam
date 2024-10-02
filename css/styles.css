@@ -115,6 +115,12 @@ ul {
     background-color: red;
   }
 }
+/* Animation warning when text inout field is empty */
+@keyframes double-warning {
+  from {
+    background-color: yellow;
+  }
+}
 /* animation class for input text field if empty */
 .input-empty-warning {
   animation-name: warning;
@@ -153,7 +159,7 @@ ul {
   background-color: rgb(255, 65, 65);
 }
 /*/////////////////////*/
-/* styling list-items */
+/* styling list-items  */
 /*/////////////////////*/
 li {
   display: flex;
@@ -165,9 +171,13 @@ li {
   padding: 0;
   margin: 0;
   height: 3rem;
+  border-radius: 0.5rem;
 }
 li:hover {
   background-color: rgb(240, 240, 240);
+}
+li:active {
+  background-color: rgb(220, 220, 220);
 }
 /* Animation for added list item  */
 @keyframes taskAdded {
@@ -185,8 +195,8 @@ li:hover {
   animation-timing-function: ease-out;
 }
 /* styling completed tasks */
-li input:checked + p {
-  color: lightslategray;
+li[value="done"] {
+  color: lightgray;
   text-decoration: line-through;
 }
 li p {
@@ -198,7 +208,26 @@ li p {
   -ms-user-select: none;
   user-select: none;
 }
+/* animation class for input text field if empty */
+.input-double-warning {
+  animation-name: double-warning;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+}
 
-.checkbox {
+.todo {
   margin-left: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+.done {
+  margin-left: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  border-style: groove;
+  background-color: lightgrey;
 }

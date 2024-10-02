@@ -1,30 +1,40 @@
+const inputText = document.querySelector(".input-text"); // QuerySelector for the input text field
+const inputButton = document.querySelector(".input-button"); // QuerySelector for the Add task-button
+const taskList = document.querySelector(".tasklist"); // QuerySelector for the list of tasks
+const box = document.querySelector(".todo");
+const valueTodo = "todo"; // Variable to set the default value of new tasks
+
 ////////////////////////////////////////////////////////////
 //         When loading the page, get items from          //
-//            LocalStorage to taskArray                   //
+//                LocalStorage to array                   //
 ////////////////////////////////////////////////////////////
-let taskArray = localStorage.getItem("tasks")
-  ? JSON.parse(localStorage.getItem("tasks"))
-  : [];
+let jsonFromLocalStorage = localStorage.getItem("tasks"); // assign localstorage items to variable
+let arrayOfTasks = JSON.parse(jsonFromLocalStorage); // parse the json to array
 
 ////////////////////////////////////////////////////////////
 //      For each item in the array, create a list item    //
 ////////////////////////////////////////////////////////////
-taskArray.forEach(addListItem);
+if (arrayOfTasks != null) {
+  for (let i = 0; i < arrayOfTasks.length; i++) {
+    // console.log(arrayOfTasks[i]);
+    addListItem(arrayOfTasks[i].id, arrayOfTasks[i].value);
+  }
+}
 
 ////////////////////////////////////////////////////////////
 //            Function to create new list items           //
 ////////////////////////////////////////////////////////////
-function addListItem(text) {
-  const taskListEntry = document.querySelector(".taskList"); // queryselector for the ul
-  let li = document.createElement("li"); // variable for creation of an li-element inside the ul
-  let checkbox = document.createElement("input"); // variable for creation of an input-element inside the li
-  let p = document.createElement("p"); // variable for creation of a p-element inside the li
-  checkbox.setAttribute("type", "checkbox"); // set the type of the input element to checkbox
-  checkbox.setAttribute("class", "checkbox"); // set the type of the input element to checkbox
+function addListItem(id, value) {
+  const li = document.createElement("li"); // variable for creation of an li-element inside the ul
+  const p = document.createElement("p"); // variable for creation of a p-element inside the li
+  const div = document.createElement("div"); // variable for creation of a p-element inside the li
   li.setAttribute("class", "list-item-added"); // set list-item and list-item-added classes to the li-element
-  li.append(checkbox, p); // to the new list item, add checkbox and p
-  p.innerText = text; // the value of the input text field is assigned to the inner text of the new p-element
-  taskListEntry.prepend(li); // add the new list item to the top of the ul
+  li.setAttribute("onclick", "clickLi(this)"); // set list-item and list-item-added classes to the li-element
+  li.setAttribute("value", value); // set list-item and list-item-added classes to the li-element
+  div.setAttribute("class", value); // set list-item and list-item-added classes to the li-element
+  li.append(div, p); // to the new list item, add checkbox and p
+  p.innerText = id; // the value of the input text field is assigned to the inner text of the new p-element
+  taskList.prepend(li); // add the new list item to the top of the ul
 }
 
 ////////////////////////////////////////////////////////////
@@ -32,55 +42,55 @@ function addListItem(text) {
 //           text field to array and localstorage         //
 ////////////////////////////////////////////////////////////
 function addToArrayAndStorage() {
-  let inputText = document.querySelector(".input-text").value;
-  taskArray.push(inputText);
-  localStorage.setItem("tasks", JSON.stringify(taskArray));
-  addListItem(inputText);
-  inputText = "";
-}
+  addListItem(inputText.value, valueTodo);
+  if (arrayOfTasks == null) {
+    arrayOfTasks = [{ id: inputText.value, value: valueTodo }];
+  } else {
+    arrayOfTasks.push({ id: inputText.value, value: valueTodo });
+  }
 
+  localStorage.setItem("tasks", JSON.stringify(arrayOfTasks));
+  inputText.value = "";
+}
 ////////////////////////////////////////////////////////////
-//              Function to call addTask                  //
+//      Sequence to run when attempting to add task       //
+////////////////////////////////////////////////////////////
+function addTask() {
+  if (inputText.value != "") {
+    addToArrayAndStorage();
+    inputText.value = ""; // clear the input field
+  } else {
+    // console.log("input empty!");
+    inputEmptyWarning();
+  }
+}
+////////////////////////////////////////////////////////////
+//                    Call addTask                        //
 //               when button is pressed                   //
 ////////////////////////////////////////////////////////////
-const inputButton = document.querySelector(".input-button");
 inputButton.addEventListener("click", () => {
-  addTask();
-});
-
-////////////////////////////////////////////////////////////
-//             Function to call addTask                   //
-//             when enter key is pressed                  //
-////////////////////////////////////////////////////////////
-const inputText = document.querySelector(".input-text");
-inputText.addEventListener("keydown", (keypress) => {
-  if (keypress.key === "Enter") {
+  if (checkIfDouble(inputText.value) == false) {
     addTask();
   }
 });
 
 ////////////////////////////////////////////////////////////
-//      Sequence to run when attempting to add task       //
+//                    Call addTask                        //
+//             when enter key is pressed                  //
 ////////////////////////////////////////////////////////////
-function addTask() {
-  const inputText = document.querySelector(".input-text").value;
-  if (inputText != "") {
-    addToArrayAndStorage();
-    document.querySelector(".input-text").value = ""; // clear the input field
-  } else {
-    console.log("input empty!");
-    inputEmptyWarning();
+inputText.addEventListener("keydown", (keypress) => {
+  if (keypress.key === "Enter") {
+    if (checkIfDouble(inputText.value) == false) {
+      addTask();
+    }
   }
-}
+});
 
 ////////////////////////////////////////////////////////////
 //        Function to flash the input field red if        //
 //          it is empty when trying to add task.          //
-//    It adds and then removes the input-empty-warning    //
-//                class to the input field.               //
 ////////////////////////////////////////////////////////////
 function inputEmptyWarning() {
-  const inputText = document.querySelector(".input-text");
   inputText.classList.add("input-empty-warning"); // add input-empty-warning class
   setTimeout(() => {
     inputText.classList.remove("input-empty-warning"); // remove input-empty-warning class after 1000ms
@@ -93,9 +103,61 @@ function inputEmptyWarning() {
 ////////////////////////////////////////////////////////////
 function clearWarning() {
   if (confirm("Do you want to clear the list?")) {
-    taskArray = [];
-    const taskListEntry = document.querySelector(".taskList");
-    taskListEntry.innerHTML = "";
+    arrayOfTasks = [];
+    taskList.innerHTML = "";
     window.localStorage.clear();
   }
+}
+
+////////////////////////////////////////////////////////////
+//     Toggle task status as done/todo when clicked       //
+////////////////////////////////////////////////////////////
+function clickLi(element) {
+  let value = element.getAttribute("value"); // Get the attribute "value" from the li element
+  if (value == "todo") {
+    toggleValue("done", element);
+    element.firstChild.classList.replace("todo", "done");
+  } else {
+    toggleValue("todo", element);
+    element.firstChild.classList.replace("done", "todo");
+  }
+}
+
+////////////////////////////////////////////////////////////
+//        Change value in array and local storage         //
+////////////////////////////////////////////////////////////
+function toggleValue(setValue, item) {
+  if (arrayOfTasks != null) {
+    for (let i = 0; i < arrayOfTasks.length; i++) {
+      if (arrayOfTasks[i].id == item.innerText) {
+        arrayOfTasks[i].value = setValue;
+        item.setAttribute("value", setValue); // ...else set to "todo"
+        localStorage.setItem("tasks", JSON.stringify(arrayOfTasks));
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////
+//            Check if the task already exists            //
+//                    Not case sensitive                  //
+////////////////////////////////////////////////////////////
+function checkIfDouble(item) {
+  if (arrayOfTasks != null) {
+    let tempArray = arrayOfTasks.map((task) => ({
+      id: task.id.toLowerCase(),
+      value: task.value,
+    }));
+    let tempItem = item.toLowerCase();
+    console.log(tempArray);
+    if (tempArray != null) {
+      for (let i = 0; i < tempArray.length; i++) {
+        if (tempArray[i].id == tempItem) {
+          inputEmptyWarning();
+          return true;
+        }
+      }
+    }
+  }
+  return false;
 }
