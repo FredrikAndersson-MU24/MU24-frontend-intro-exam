@@ -104,7 +104,7 @@ ul {
 }
 .input-text:hover,
 .search-text:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(230, 230, 230);
 }
 /* Animation warning when text input field is empty */
 @keyframes warning {
@@ -163,45 +163,45 @@ ul {
 .input-button {
   padding: 0;
   font-size: 2.4rem;
-  background-color: rgb(60, 245, 70);
+  background-color: rgb(70, 180, 70);
 }
 .input-button:hover {
-  background-color: rgb(70, 255, 80);
+  background-color: rgb(80, 190, 80);
 }
 .input-button:active {
-  background-color: rgb(50, 225, 50);
+  background-color: rgb(60, 170, 60);
 }
 
 /*  Styling for input button  */
 .search-button {
   padding: 0;
   font-size: 1.8rem;
-  background-color: rgb(0, 100, 200);
+  background-color: rgb(20, 120, 180);
 }
 .search-button:hover {
-  background-color: rgb(10, 110, 210);
+  background-color: rgb(30, 130, 190);
 }
 .search-button:active {
-  background-color: rgb(0, 80, 180);
+  background-color: rgb(10, 110, 170);
 }
 
 /*  Styling for clear button  */
 .clear-button {
-  background-color: rgb(245, 55, 55);
+  background-color: rgb(235, 45, 45);
 }
 .clear-button:hover {
-  background-color: rgb(255, 65, 65);
+  background-color: rgb(245, 55, 55);
 }
 .clear-button:active {
-  background-color: rgb(225, 35, 35);
+  background-color: rgb(225, 25, 25);
 }
 
 /*  Styling for sort buttons   */
 .sort-button {
-  background-color: rgb(210, 210, 210);
+  background-color: rgb(200, 200, 200);
 }
 .sort-button:hover {
-  background-color: rgb(220, 220, 220);
+  background-color: rgb(210, 210, 210);
 }
 .sort-button:active {
   background-color: rgb(190, 190, 190);
@@ -239,10 +239,10 @@ li {
   border-radius: 0.5rem;
 }
 li:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(230, 230, 230);
 }
 li:active {
-  background-color: rgb(220, 220, 220);
+  background-color: rgb(210, 210, 210);
 }
 /* Animation for added list item  */
 @keyframes taskAdded {
