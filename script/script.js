@@ -25,20 +25,43 @@ if (arrayOfTasks != null) {
 //            when input button is pressed                //
 ////////////////////////////////////////////////////////////
 inputButton.addEventListener("click", () => {
-  if (checkIfNotDouble(inputText.value)) {
+  if (checkIfNotDuplicate(inputText.value)) {
     addTask();
   }
 });
 
 ////////////////////////////////////////////////////////////
-//                    Call addTask                        //
-//             when enter key is pressed                  //
+//            Call addTask if add task input              //
+//            field is active and enter key               //
+//                      is pressed                        //
 ////////////////////////////////////////////////////////////
 inputText.addEventListener("keydown", (keypress) => {
   if (keypress.key === "Enter") {
-    if (checkIfNotDouble(inputText.value)) {
+    if (checkIfNotDuplicate(inputText.value)) {
       addTask();
     }
+  }
+});
+////////////////////////////////////////////////////////////
+//            Call search when search input               //
+//            field is active and enter key               //
+//                    is pressed                          //
+////////////////////////////////////////////////////////////
+searchText.addEventListener("keydown", (keypress) => {
+  if (keypress.key === "Enter") {
+    if (searchText.value != "") {
+      search(searchText.value);
+    }
+  }
+});
+////////////////////////////////////////////////////////////
+//             Call unsort when escape key                //
+//                      is pressed                        //
+//    Clears input fields and unsorts/reloads the list.   //
+////////////////////////////////////////////////////////////
+document.addEventListener("keydown", (keypress) => {
+  if (keypress.key === "Escape") {
+    unsort();
   }
 });
 
@@ -51,9 +74,9 @@ function addTask() {
     inputText.value = ""; // clear the input field
   } else {
     // console.log("input empty!");
-    inputText.classList.add("input-empty-warning"); // add input-empty-warning class
+    inputText.classList.add("input-red-warning"); // add input-empty-warning class
     setTimeout(() => {
-      inputText.classList.remove("input-empty-warning"); // remove input-empty-warning class after x ms
+      inputText.classList.remove("input-red-warning"); // remove input-empty-warning class after x ms
     }, 400);
   }
 }
@@ -138,13 +161,13 @@ function toggleValue(setValue, item) {
 //            Check if the task already exists            //
 //                    Not case sensitive                  //
 ////////////////////////////////////////////////////////////
-function checkIfNotDouble(item) {
+function checkIfNotDuplicate(item) {
   if (arrayOfTasks != null) {
     for (let i = 0; i < arrayOfTasks.length; i++) {
       if (arrayOfTasks[i].id.toLowerCase() === item.toLowerCase()) {
-        inputText.classList.add("input-double-warning"); // add input-empty-warning class
+        inputText.classList.add("input-yellow-warning"); // add input-empty-warning class
         setTimeout(() => {
-          inputText.classList.remove("input-double-warning"); // remove input-empty-warning class after x ms
+          inputText.classList.remove("input-yellow-warning"); // remove input-empty-warning class after x ms
         }, 400);
 
         return false;
@@ -216,14 +239,15 @@ function search(item) {
             id: arrayOfTasks[i].id,
             value: arrayOfTasks[i].value,
           });
+          if (tempArray != []) {
+            taskList.innerHTML = "";
+            for (let i = 0; i < tempArray.length; i++) {
+              addListItem(tempArray[i].id, tempArray[i].value);
+              searchText.value = "";
+            }
+          }
         }
       }
-    }
-    taskList.innerHTML = "";
-    for (let i = 0; i < tempArray.length; i++) {
-      // console.log(arrayOfTasks[i]);
-      addListItem(tempArray[i].id, tempArray[i].value);
-      searchText.value = "";
     }
   }
 }

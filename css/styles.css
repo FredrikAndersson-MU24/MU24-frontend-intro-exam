@@ -107,27 +107,27 @@ ul {
   background-color: rgb(230, 230, 230);
 }
 /* Animation warning when text input field is empty */
-@keyframes warning {
+@keyframes red-warning {
   from {
     background-color: red;
   }
 }
 /* Animation warning when text inout field is empty */
-@keyframes double-warning {
+@keyframes yellow-warning {
   from {
     background-color: yellow;
   }
 }
 /* animation class for input text field if empty */
-.input-empty-warning {
-  animation-name: warning;
+.input-red-warning {
+  animation-name: red-warning;
   animation-duration: 0.4s;
   animation-timing-function: ease-out;
 }
 
 /* animation class for input text field if task already exists */
-.input-double-warning {
-  animation-name: double-warning;
+.input-yellow-warning {
+  animation-name: yellow-warning;
   animation-duration: 0.4s;
   animation-timing-function: ease-out;
 }
