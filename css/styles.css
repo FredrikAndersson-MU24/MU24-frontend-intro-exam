@@ -2,31 +2,37 @@
   --bg-color: #e0f7fa;
   --list-bg-color: #f5f5f5;
   --card-bg-color: #00acc1;
-  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-family: sans-serif;
   --font-color: #424242;
-  --border-radius: 0.5rem;
+  --border-radius: 0;
+  --border: 1px solid black;
 }
 
 * {
   box-sizing: border-box;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 body {
   width: 100vw;
   height: 100vh;
   margin: 0;
-  margin-top: 1rem;
+  padding: 0;
   display: flex;
   justify-content: center;
   background-color: var(--bg-color);
 }
-/*///////////////////////////////////////////////*/
-/* wrapper for the header, ul, input and footer*/
-/*///////////////////////////////////////////////*/
+/*///////////////////////////////////////////////////////////*/
+/*      wrapper for the header, ul, input = "the card"       */
+/*///////////////////////////////////////////////////////////*/
 .list-wrapper {
+  margin: auto;
   background-color: var(--card-bg-color);
   height: fit-content;
-  width: 24rem;
+  width: 28rem;
+  height: 42rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -35,7 +41,7 @@ body {
   border-radius: var(--border-radius);
 }
 
-/*////////////////////////////////*/
+/*/ ///////////////////////////////*/
 /*     styling the header         */
 /*////////////////////////////////*/
 header {
@@ -44,72 +50,63 @@ header {
   justify-content: center;
   align-items: center;
 }
-/*////////////////////////////////*/
+/*/ ///////////////////////////////*/
 /*     styling the title h1       */
 /*////////////////////////////////*/
 h1 {
   font-family: var(--font-family);
   font-size: 2rem;
 }
-/*////////////////////////////////*/
+/*/ ///////////////////////////////*/
 /*      styling the tasklist      */
+/*   (not the individual items)   */
 /*////////////////////////////////*/
 ul {
-  font-family: var(--font-family);
   width: 22rem;
   height: 20rem;
   background-color: var(--list-bg-color);
   list-style-type: none;
-  font-size: 1.2rem;
   overflow-x: hidden;
   overflow-y: auto;
   scroll-behavior: auto;
+  border: var(--border);
   border-radius: var(--border-radius);
   padding: 0;
 }
 
-/*////////////////////////////////*/
+/*/ ///////////////////////////////*/
 /* Wrapper for the input elements */
 /*////////////////////////////////*/
 .input-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0;
-  margin-top: 1rem;
-}
-/*////////////////////////////////*/
-/*    Wrapper for the buttons     */
-/*////////////////////////////////*/
-.button-wrapper {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
+
+/*/ ///////////////////////////////*/
+/*  styling the input fields  */
 /*////////////////////////////////*/
-/*  styling the input text field  */
-/*////////////////////////////////*/
-.input-text {
-  width: 100%;
+.input-text,
+.search-text {
+  width: 80%;
   background-color: var(--list-bg-color);
   font-size: 1.2rem;
   height: 3rem;
-  border: none;
+  border: var(--border);
   border-radius: var(--border-radius);
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
-.input-text:hover {
+.input-text:hover,
+.search-text:hover {
   background-color: rgb(240, 240, 240);
 }
-/* Animation warning when text inout field is empty */
+/* Animation warning when text input field is empty */
 @keyframes warning {
   from {
     background-color: red;
@@ -124,53 +121,121 @@ ul {
 /* animation class for input text field if empty */
 .input-empty-warning {
   animation-name: warning;
-  animation-duration: 0.6s;
+  animation-duration: 0.4s;
   animation-timing-function: ease-out;
 }
 
-/*////////////////////////////*/
-/*  Styling for input button  */
-/*////////////////////////////*/
-.input-button {
+/* animation class for input text field if task already exists */
+.input-double-warning {
+  animation-name: double-warning;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+}
+/*/ //////////////////////////////////////*/
+/*    Wrapper for the bottom buttons     */
+/*///////////////////////////////////////*/
+.bottom-button-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+/*///////////////////////////////////////////////////////////*/
+/*                     Styling the buttons                   */
+/*///////////////////////////////////////////////////////////*/
+/*General styling for buttons */
+.button {
   height: 3rem;
+  min-width: 3rem;
   width: fit-content;
+  border: var(--border);
   border-radius: var(--border-radius);
   font-size: 1.2rem;
   padding: 0.6rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+}
+
+/*  Styling for input button  */
+.input-button {
+  padding: 0;
+  font-size: 2.4rem;
   background-color: rgb(60, 245, 70);
 }
 .input-button:hover {
   background-color: rgb(70, 255, 80);
 }
-/*////////////////////////////*/
+.input-button:active {
+  background-color: rgb(50, 225, 50);
+}
+
+/*  Styling for input button  */
+.search-button {
+  padding: 0;
+  font-size: 1.8rem;
+  background-color: rgb(0, 100, 200);
+}
+.search-button:hover {
+  background-color: rgb(10, 110, 210);
+}
+.search-button:active {
+  background-color: rgb(0, 80, 180);
+}
+
 /*  Styling for clear button  */
-/*////////////////////////////*/
 .clear-button {
-  height: 3rem;
-  width: fit-content;
-  border-radius: var(--border-radius);
-  font-size: 1.2rem;
-  padding: 0.6rem;
   background-color: rgb(245, 55, 55);
 }
 .clear-button:hover {
   background-color: rgb(255, 65, 65);
 }
-/*/////////////////////*/
-/* styling list-items  */
-/*/////////////////////*/
+.clear-button:active {
+  background-color: rgb(225, 35, 35);
+}
+
+/*  Styling for sort buttons   */
+.sort-button {
+  background-color: rgb(210, 210, 210);
+}
+.sort-button:hover {
+  background-color: rgb(220, 220, 220);
+}
+.sort-button:active {
+  background-color: rgb(190, 190, 190);
+}
+/*///////////////////////////////////////////////////////////*/
+/*                   styling list-items                      */
+/*///////////////////////////////////////////////////////////*/
+
+/*                  Styling for the "checkboxes"             */
+.todo {
+  margin-left: 1.5rem;
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  border-radius: 100%;
+  border-style: ridge;
+}
+.done {
+  margin-left: 1.5rem;
+  width: 20px;
+  height: 20px;
+  border: 3px double lightgrey;
+  border-radius: 100%;
+  background-color: rgb(230, 227, 227);
+}
+/*                    Styling for the "row"                 */
 li {
+  font-family: var(--font-family);
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   border-bottom: 1px solid lightgray;
-  text-wrap-style: auto;
-  padding: 0;
-  margin: 0;
-  height: 3rem;
+  min-height: 3rem;
   border-radius: 0.5rem;
 }
 li:hover {
@@ -183,9 +248,6 @@ li:active {
 @keyframes taskAdded {
   from {
     background-color: lightgreen;
-  }
-  to {
-    background-color: white;
   }
 }
 /*  animate fade from green when list item is added  */
@@ -200,34 +262,8 @@ li[value="done"] {
   text-decoration: line-through;
 }
 li p {
+  width: 20rem;
   padding-left: 0.5em;
-}
-/* prevent text selection, to make the list more like a list of "things rather than text"*/
-.prevent-select li p {
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-/* animation class for input text field if empty */
-.input-double-warning {
-  animation-name: double-warning;
-  animation-duration: 0.6s;
-  animation-timing-function: ease-out;
-}
-
-.todo {
-  margin-left: 1rem;
-  width: 1.2rem;
-  height: 1.2rem;
-  border: 1px solid black;
-  border-radius: 1rem;
-}
-.done {
-  margin-left: 1rem;
-  width: 1.2rem;
-  height: 1.2rem;
-  border: 1px solid gray;
-  border-radius: 1rem;
-  border-style: groove;
-  background-color: lightgrey;
+  padding-right: 0.5em;
+  text-wrap: auto;
 }

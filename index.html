@@ -3,28 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>MU24-frontend-intro-exam</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <script src="./script/script.js" defer></script>
   </head>
   <body>
-    <div class="list-wrapper">
+    <div class="list-wrapper prevent-select">
       <header><h1>ToDo</h1></header>
       <main>
-        <ul class="tasklist prevent-select">
-          <!-- <li onclick="clickLi(this)" value="done">
-            <p>testtest</p>
-          </li> -->
-        </ul>
         <div class="input-wrapper">
-          <input type="text" class="input-text" autofocus />
-          <div class="button-wrapper">
-            <button class="clear-button button" onclick="clearWarning()">
-              Clear list
-            </button>
-
-            <button class="input-button button">Add task</button>
-          </div>
+          <input type="search" class="search-text" placeholder="Search..." />
+          <button
+            class="search-button button"
+            onclick="search(searchText.value)"
+          >
+            &#x1F50D;&#xFE0E;
+          </button>
+        </div>
+        <div class="input-wrapper">
+          <input type="search" class="input-text" placeholder="Add task..." />
+          <button class="input-button button">+</button>
+        </div>
+        <ul class="tasklist"></ul>
+        <div class="bottom-button-wrapper">
+          <button class="clear-button button" onclick="clearWarning()">
+            Clear list
+          </button>
+          <button class="sort-button button" onclick="sortAsc()">
+            Sort &#8593;
+          </button>
+          <button class="sort-button button" onclick="sortDesc()">
+            Sort &#8595;
+          </button>
+          <button class="sort-button button" onclick="unsort()">&#8634;</button>
         </div>
       </main>
     </div>
